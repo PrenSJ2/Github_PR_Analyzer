@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GitHub PR Technical Description Generator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #1C1723;
+        color: #88D6BF;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2em;
+        padding: 1em;
+      }
+      .logo {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 1em;
+      }
+      .title {
+        margin-bottom: 2em;
+        font-size: 1.5em;
+        text-align: center;
+      }
+      .input-group {
+        margin-bottom: 1em;
+      }
+      .input-group input {
+        margin-top: 0.5em;
+        padding: 0.5em;
+        width: 300px;
+        border-radius: 5px;
+        border: 1px solid #88D6BF;
+        background-color: #1C1723;
+        color: #88D6BF;
+      }
+      .input-group p {
+        color: #88D6BF;
+        font-size: 0.8em;
+      }
+      .input-group p a {
+        color: white;
+      }
+      .input-group label {
+        font-weight: bold;
+      }
+      button {
+        padding: 0.5em 1em;
+        border: none;
+        border-radius: 5px;
+        background-color: #88D6BF;
+        color: #1C1723;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #66c4a5;
+      }
+      .footer {
+        margin-top: 2em;
+        font-size: 0.8em;
+      }
+      .footer a {
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img src="logo.png" alt="Logo" class="logo">
+      <div class="title">GitHub PR Technical Description Generator</div>
+      <div class="input-group">
+        <label for="githubToken">GitHub API Token:</label>
+        <input type="text" id="githubToken">
+        <p>
+          The permissions needed depend on the repositories you want to access.
+          For public repositories, your token should have the <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token" target="_blank">public_repo</a> scope.
+          For private repositories, your token should have the <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token#creating-a-token" target="_blank">repo</a> scope.
+        </p>
+      </div>
+      <div class="input-group">
+        <label for="openaiToken">OpenAI API Token:</label>
+        <input type="text" id="openaiToken">
+        <p>
+          Get your OpenAI API Token from your <a href="https://platform.openai.com/account/api-keys" target="_blank">OpenAI account</a>.
+        </p>
+      </div>
+      <button id="save">Save</button>
+      <div class="footer">
+        <a href="https://github.com/PrenSJ2" target="_blank">Developed by PrenSJ2</a>
+      </div>
+    </div>
+    <script src="popup.js" type="module"></script>
+  </body>
+</html>
