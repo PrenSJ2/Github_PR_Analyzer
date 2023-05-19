@@ -5,35 +5,42 @@ chrome.storage.sync.get(['githubToken', 'openaiToken'], (tokens) => {
   let githubToken = tokens.githubToken;
   let openaiToken = tokens.openaiToken;
 
-  // Function to inject the button when the target text field appears
+  // Function to inject the button on a pull request page
   const injectButton = () => {
-    const targetDiv = document.querySelector('.js-comment-field.js-paste-markdown.js-task-list-field.js-quick-submit.js-size-to-fit.js-session-resumable.form-control.input-contrast.comment-form-textarea.js-saved-reply-shortcut-comment-field');
-    if (targetDiv && !document.querySelector('.generate-description-button')) {
-      const button = document.createElement('button');
-      button.textContent = 'Generate Technical Description';
-      button.className = 'generate-description-button';
+    const prTitleElement = document.querySelector('.js-issue-title');
+    if (prTitleElement) {
+      const prDescriptionElement = document.querySelector('.comment-body.timeline-comment');
+      if (prDescriptionElement) {
+        const targetDiv = prDescriptionElement.closest('.js-comment-container');
+        if (targetDiv && !document.querySelector('.generate-description-button')) {
+          const button = document.createElement('button');
+          button.textContent = 'Generate Technical Description';
+          button.className = 'generate-description-button';
 
-      button.addEventListener('click', () => {
-        generateTechnicalDescription(githubToken, openaiToken);
-      });
+          button.addEventListener('click', () => {
+            generateTechnicalDescription(githubToken, openaiToken);
+          });
 
-      targetDiv.parentNode.insertBefore(button, targetDiv);
+          targetDiv.insertBefore(button, targetDiv.firstChild);
 
-      console.log('Button inserted successfully.');
+          console.log('Button inserted successfully.');
+        }
+      }
     }
   };
 
-  // Observe changes in the DOM to inject the button when the target text field appears
+  // Observe changes in the DOM to inject the button on a pull request page
   const observer = new MutationObserver(() => {
     injectButton();
   });
   observer.observe(document.body, { childList: true, subtree: true });
 
-  // Inject the button on script start in case the target field already exists
+  // Inject the button on script start in case the pull request page is already loaded
   injectButton();
 
   console.log('Content script initialized.');
 });
+
 async function generateTechnicalDescription(githubToken, openaiToken) {
   // Retrieve relevant information from the PR page
   let titleElement = document.querySelector('.js-issue-title');
